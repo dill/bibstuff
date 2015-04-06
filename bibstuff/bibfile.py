@@ -318,8 +318,6 @@ class BibEntry(dict):
 			   default_type = "%(names)s-%(year)s")
 		
 
-		:TODO: Strip LaTeX accent characters from names when making label
-
 		"""
 
 		from .bibstyles.shared import NameFormatter
@@ -348,6 +346,7 @@ class BibEntry(dict):
 			ls = ls[:max_names] + [etal]
 
 		names =  name_name_sep.join(ls)
+                names = re.sub(r'["@\',\\#}{~%]', "", names)
 		if lower_name:
 			names = names.lower()
 		format_dict['names'] = names
